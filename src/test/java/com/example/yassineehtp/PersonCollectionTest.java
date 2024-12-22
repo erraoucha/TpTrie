@@ -3,26 +3,36 @@ package com.example.yassineehtp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
+import lombok.Builder;
+
 public class PersonCollectionTest {
+
     @Test
-    public void testPersonClass() {
-
+    public void testSortPerson() {
         List<Person> people = new ArrayList<>();
-        people.add(new Person("Hamid", "Jamila"));
-        people.add(new Person("Martin", "Bob"));
-        people.add(new Person("Hamid", "Charles"));
-        people.add(new Person("Bernard", "Jamila"));
+        people.add(Person.builder().firstName("Hamid").lastName("Jamila").build());
+        people.add(Person.builder().firstName("Martin").lastName("Bob").build());
+        people.add(Person.builder().firstName("Hamid").lastName("Charles").build());
+        people.add(Person.builder().firstName("Bernard").lastName("Charles").build());
 
-        // Tri de la liste de personnes
+
+        
         Collections.sort(people);
 
-        // Affichage des personnes tri ées
-        System.out.println(" Liste triée de personnes : ");
-        for (Person person : people) {
-            System.out.println(person);
-        }
+        assertThat(people.get(0))
+                .isEqualTo(Person.builder().firstName("Martin").lastName("Bob").build());
+        assertThat(people.get(1))
+                .isEqualTo(Person.builder().firstName("Bernard").lastName("Charles").build());
+        assertThat(people.get(2))
+                .isEqualTo(Person.builder().firstName("Hamid").lastName("Charles").build());
+        assertThat(people.get(3))
+                .isEqualTo(Person.builder().firstName("Hamid").lastName("Jamila").build());
+
     }
+
+     
 }
